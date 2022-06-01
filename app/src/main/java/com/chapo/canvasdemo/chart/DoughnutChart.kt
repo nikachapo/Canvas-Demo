@@ -10,29 +10,32 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun StrokeChart(chartSize: Dp, chartModels: List<ChartModel>) {
-
+fun DoughnutChart(
+    chartModels: List<ChartModel>,
+    chartSize: Dp,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = Color(0xFFF0E9E9),
+    strokeWidth: Float = 100f,
+    cap: StrokeCap = StrokeCap.Round
+) {
     Canvas(
-        modifier = Modifier
+        modifier = modifier
             .size(chartSize)
     ) {
-        var startAngle = 0f
 
-        drawArc(
-            color = Color(0xFFF0E9E9),
-            startAngle = 0f,
-            sweepAngle = 360f,
-            useCenter = false,
-            style = Stroke(100f, cap = StrokeCap.Round, miter = 0f),
+        drawCircle(
+            color = backgroundColor,
+            style = Stroke(strokeWidth, cap = cap),
         )
 
+        var startAngle = 0f
         chartModels.forEach { chartModel ->
             drawArc(
                 chartModel.color,
                 startAngle = startAngle,
-                sweepAngle = (chartModel.percentage * 360 / 100).also { startAngle += it },
+                sweepAngle = (chartModel.percentage * 3.6f).also { startAngle += it },
                 useCenter = false,
-                style = Stroke(100f, cap = StrokeCap.Round, miter = 0f),
+                style = Stroke(strokeWidth, cap = cap),
             )
         }
 

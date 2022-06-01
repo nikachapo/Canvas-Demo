@@ -21,16 +21,24 @@ import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.chapo.canvasdemo.chart.ChartModel
-import com.chapo.canvasdemo.chart.StrokeChart
+import com.chapo.canvasdemo.chart.DoughnutChart
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
-            var cyanPercentage by remember { mutableStateOf(20f) }
-            var greenPercentage by remember { mutableStateOf(20f) }
-            var yellowPercentage by remember { mutableStateOf(60f) }
+            var cyanPercentage by remember { mutableStateOf(0f) }
+            var greenPercentage by remember { mutableStateOf(0f) }
+            var yellowPercentage by remember { mutableStateOf(0f) }
+
+            LaunchedEffect(key1 = Unit) {
+                delay(500)
+                cyanPercentage = 30f
+                greenPercentage = 20f
+                yellowPercentage = 40f
+            }
 
             val cyanAnimatedPercentageState = animateFloatAsState(
                 targetValue = cyanPercentage,
@@ -52,13 +60,13 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                StrokeChart(
-                    chartSize = 200.dp,
-                    listOf(
+                DoughnutChart(
+                    chartModels = listOf(
                         ChartModel(cyanAnimatedPercentageState.value, Cyan),
                         ChartModel(greenAnimatedPercentageState.value, Green),
                         ChartModel(yellowAnimatedPercentageState.value, Yellow),
-                    )
+                    ),
+                    chartSize = 200.dp,
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

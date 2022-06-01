@@ -2,7 +2,7 @@ package com.chapo.canvasdemo.chart
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -12,17 +12,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Chart(chartSize: Dp, chartModels: List<ChartModel>) {
+fun PieChart(
+    chartModels: List<ChartModel>,
+    chartSize: Dp,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = Color(0xFFF0E9E9),
+    elevation: Dp = 15.dp,
+) {
 
     Canvas(
-        modifier = Modifier
+        modifier = modifier
             .size(chartSize)
-            .shadow(15.dp, RoundedCornerShape(100))
+            .shadow(elevation = elevation, shape = CircleShape)
     ) {
+
+        drawCircle(backgroundColor)
+
         var startAngle = 0f
-
-        drawCircle(Color(0xFFF0E9E9))
-
         chartModels.forEach { chartModel ->
             drawArc(
                 brush = Brush.verticalGradient(
@@ -32,7 +38,7 @@ fun Chart(chartSize: Dp, chartModels: List<ChartModel>) {
                     )
                 ),
                 startAngle = startAngle,
-                sweepAngle = (chartModel.percentage * 360 / 100).also { startAngle += it },
+                sweepAngle = (chartModel.percentage * 3.6f).also { startAngle += it },
                 useCenter = true
             )
         }
@@ -40,5 +46,3 @@ fun Chart(chartSize: Dp, chartModels: List<ChartModel>) {
 
     }
 }
-
-data class ChartModel(val percentage: Float, val color: Color)
