@@ -11,12 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PointMode
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.unit.dp
+import java.lang.Math.PI
 
 @Composable
 fun CanvasObjects() {
-    CreateCanvas()
+    DrawPoints()
 }
 
 @Composable
@@ -80,5 +82,27 @@ fun CreateCanvas() {
 //            )
 //        )
 
+    }
+}
+
+@Composable
+fun DrawPoints() {
+    Canvas(modifier = Modifier.size(300.dp)) {
+
+        val height = size.height
+        val width = size.width
+        val points = mutableListOf<Offset>()
+
+        for (x in 0..size.width.toInt()) {
+            val y = (kotlin.math.sin(x * (2f * PI / width))
+                    * (height / 2) + (height / 2)).toFloat()
+            points.add(Offset(x.toFloat(), y))
+        }
+        drawPoints(
+            points = points,
+            strokeWidth = 3f,
+            pointMode = PointMode.Points,
+            color = Color.Blue
+        )
     }
 }
