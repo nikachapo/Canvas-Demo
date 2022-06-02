@@ -14,6 +14,7 @@ fun DoughnutChart(
     chartModels: List<ChartModel>,
     chartSize: Dp,
     modifier: Modifier = Modifier,
+    start: Float = 270f,
     backgroundColor: Color = Color(0xFFF0E9E9),
     strokeWidth: Float = 100f,
     cap: StrokeCap = StrokeCap.Round
@@ -28,7 +29,7 @@ fun DoughnutChart(
             style = Stroke(strokeWidth, cap = cap),
         )
 
-        var startAngle = 0f
+        var startAngle = start
         chartModels.forEach { chartModel ->
             drawArc(
                 chartModel.color,

@@ -16,6 +16,7 @@ fun PieChart(
     chartModels: List<ChartModel>,
     chartSize: Dp,
     modifier: Modifier = Modifier,
+    start: Float = 270f,
     backgroundColor: Color = Color(0xFFF0E9E9),
     elevation: Dp = 15.dp,
 ) {
@@ -28,7 +29,7 @@ fun PieChart(
 
         drawCircle(backgroundColor)
 
-        var startAngle = 0f
+        var startAngle = start
         chartModels.forEach { chartModel ->
             drawArc(
                 brush = Brush.verticalGradient(
