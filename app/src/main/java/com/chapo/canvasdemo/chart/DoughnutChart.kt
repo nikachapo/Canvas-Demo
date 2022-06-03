@@ -2,12 +2,16 @@ package com.chapo.canvasdemo.chart
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun DoughnutChart(
@@ -19,10 +23,15 @@ fun DoughnutChart(
     strokeWidth: Float = 100f,
     cap: StrokeCap = StrokeCap.Round
 ) {
+    val background = MaterialTheme.colors.background
     Canvas(
         modifier = modifier
             .size(chartSize)
+            .shadow(elevation = 30.dp, shape = CircleShape, clip = false)
+
     ) {
+
+        drawCircle(background)
 
         drawCircle(
             color = backgroundColor,

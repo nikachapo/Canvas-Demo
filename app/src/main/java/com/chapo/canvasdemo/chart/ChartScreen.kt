@@ -50,7 +50,7 @@ fun ChartScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PieChart(
+        DoughnutChart(
             chartModels = listOf(
                 ChartModel(cyanAnimatedPercentageState.value, Color.Cyan),
                 ChartModel(greenAnimatedPercentageState.value, Color.Green),
